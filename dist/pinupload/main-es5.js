@@ -320,6 +320,7 @@ var PinterestService = /** @class */ (function () {
     PinterestService.prototype.getToken = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.oAuthSrv.initImplicitFlow();
                 console.log('** TOKEN => ' + this.oAuthSrv.getAccessToken());
                 return [2 /*return*/];
             });

@@ -330,6 +330,7 @@ let PinterestService = class PinterestService {
     }
     getToken() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.oAuthSrv.initImplicitFlow();
             console.log('** TOKEN => ' + this.oAuthSrv.getAccessToken());
         });
     }
