@@ -139,6 +139,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
 /* harmony import */ var _material_material_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./material/material.module */ "./src/app/material/material.module.ts");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! angular-oauth2-oidc */ "./node_modules/angular-oauth2-oidc/fesm2015/angular-oauth2-oidc.js");
+
 
 
 
@@ -161,7 +163,8 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
             _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_6__["BrowserAnimationsModule"],
             _material_material_module__WEBPACK_IMPORTED_MODULE_7__["MaterialModule"],
-            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"]
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClientModule"],
+            angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_9__["OAuthModule"].forRoot()
         ],
         providers: [],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
@@ -307,38 +310,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-oauth2-oidc */ "./node_modules/angular-oauth2-oidc/fesm2015/angular-oauth2-oidc.js");
+
 
 
 
 
 let PinterestService = class PinterestService {
-    constructor(http) {
+    constructor(http, oAuthSrv) {
         this.http = http;
+        this.oAuthSrv = oAuthSrv;
         this.env = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
+        this.oAuthSrv.loginUrl = this.env.authUrl;
+        this.oAuthSrv.redirectUri = this.env.redirectUri;
+        this.oAuthSrv.clientId = this.env.clientId;
+        this.oAuthSrv.scope = 'read_public,write_public';
+        this.oAuthSrv.setStorage(sessionStorage);
+        this.oAuthSrv.tryLogin({});
     }
     getToken() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            const params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]();
-            params.set('response_type', 'code');
-            params.set('redirect_uri', this.env.redirectUri);
-            params.set('client_id', this.env.clientId);
-            params.set('scope', 'read_public,write_public');
-            params.set('state', 'abc123');
-            let token;
-            try {
-                const promise = yield this.http.get(this.env.authUrl, { params: params });
-                console.log('TOKEN: ' + token);
-                promise.subscribe(ret => token = ret);
-                return token;
-            }
-            catch (erro) {
-                console.error(erro);
-            }
+            console.log('** TOKEN => ' + this.oAuthSrv.getAccessToken());
         });
     }
 };
 PinterestService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
+    { type: angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_4__["OAuthService"] }
 ];
 PinterestService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -417,7 +415,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/goncin/AULA/pinupload/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /home/goncin/AULA/pinupload-next/src/main.ts */"./src/main.ts");
 
 
 /***/ })
