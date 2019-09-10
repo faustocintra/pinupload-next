@@ -326,7 +326,7 @@ let PinterestService = class PinterestService {
         this.oAuthSrv.clientId = this.env.clientId;
         this.oAuthSrv.scope = 'read_public,write_public';
         this.oAuthSrv.setStorage(sessionStorage);
-        this.oAuthSrv.tryLogin({});
+        //this.oAuthSrv.tryLogin({});  
     }
     getToken() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
