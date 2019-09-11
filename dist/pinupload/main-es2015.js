@@ -341,15 +341,14 @@ let PinterestService = class PinterestService {
                 .set('client_id', this.env.clientId)
                 .set('scope', 'read_public,write_public')
                 .set('redirect_uri', window.location.origin + '/index.html');
-            try {
-                const accessCode = yield this.http.get(baseUrl, { params });
+            const obs = this.http.get(baseUrl, { params });
+            obs.subscribe(accessCode => {
                 console.log('Access code:');
                 console.log(accessCode);
                 return accessCode;
-            }
-            catch (e) {
-                console.error(e);
-            }
+            }, error => {
+                console.error(error);
+            });
         });
     }
 };

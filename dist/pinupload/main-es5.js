@@ -324,31 +324,23 @@ var PinterestService = /** @class */ (function () {
     };
     PinterestService.prototype.getToken = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var baseUrl, params, accessCode, e_1;
+            var baseUrl, params, obs;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        baseUrl = 'https://api.pinterest.com/oauth/';
-                        params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
-                            .set('response_type', 'code')
-                            .set('client_id', this.env.clientId)
-                            .set('scope', 'read_public,write_public')
-                            .set('redirect_uri', window.location.origin + '/index.html');
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, , 4]);
-                        return [4 /*yield*/, this.http.get(baseUrl, { params: params })];
-                    case 2:
-                        accessCode = _a.sent();
-                        console.log('Access code:');
-                        console.log(accessCode);
-                        return [2 /*return*/, accessCode];
-                    case 3:
-                        e_1 = _a.sent();
-                        console.error(e_1);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
-                }
+                baseUrl = 'https://api.pinterest.com/oauth/';
+                params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
+                    .set('response_type', 'code')
+                    .set('client_id', this.env.clientId)
+                    .set('scope', 'read_public,write_public')
+                    .set('redirect_uri', window.location.origin + '/index.html');
+                obs = this.http.get(baseUrl, { params: params });
+                obs.subscribe(function (accessCode) {
+                    console.log('Access code:');
+                    console.log(accessCode);
+                    return accessCode;
+                }, function (error) {
+                    console.error(error);
+                });
+                return [2 /*return*/];
             });
         });
     };
