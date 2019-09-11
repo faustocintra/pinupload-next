@@ -5,6 +5,8 @@
 # Este comando gera ou atualiza a pasta /dist
 ng build --base-href /pinupload/
 
+cp src/404.html dist/pinupload
+
 # Adicionar a pasta /dist para ser enviada ao GitHub.
 # A opção -f força a adição mesmo se o caminho estiver
 # configurado no arquivo .gitignore
