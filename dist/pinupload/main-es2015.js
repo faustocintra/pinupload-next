@@ -53,7 +53,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const routes = [
-    { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_3__["LoginComponent"] }
+    { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_3__["LoginComponent"] },
+    { path: 'pinupload/login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_3__["LoginComponent"] }
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
