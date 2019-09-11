@@ -1,42 +1,46 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { OAuthService, AuthConfig, JwksValidationHandler } from 'angular-oauth2-oidc';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PinterestService {
 
-  constructor(
-    private http: HttpClient,
-  ) { }
-
   private env = environment;
 
-  async getToken() {
+  public accessCode : String;
 
-    const params = new HttpParams();
+  private authConfig: AuthConfig = {
+    issuer: this.env.authUrl,
+    redirectUri: window.location.origin + '/index.html',
+    clientId: this.env.clientId,
+    scope: 'read_public,write_public',    
+  };
 
-    params.set('response_type', 'code');
-    params.set('redirect_uri', this.env.redirectUri);
-    params.set('client_id', this.env.clientId);
-    params.set('scope', 'read_public,write_public');
-    params.set('state', 'abc123');
+  constructor(
+    private http: HttpClient,
+    private oAuthSrv: OAuthService
+  ) { }
 
-    let token;
+  private configure() {
+    this.oAuthSrv.configure(this.authConfig);
+    this.oAuthSrv.tokenValidationHandler = new JwksValidationHandler();
+    //this.oAuthSrv.loadDiscoveryDocumentAndTryLogin();    
+  }
 
-    try {
-      const promise = await this.http.get(this.env.authUrl, {params: params});
-      console.log('TOKEN: ' + token);
-      promise.subscribe(
-        ret => token = ret
-      );
-      return token;
-    }
-    catch(erro) {
-      console.error(erro);
-    }
+  getAccessCode() {
 
+    const baseUrl = 'https://api.pinterest.com/oauth/';
+    const params = new HttpParams()
+      .set('response_type', 'code')
+      .set('client_id', this.env.clientId)
+      .set('scope', 'read_public,write_public')
+      .set('redirect_uri', 'https://faustocintra.github.io/pinupload/login');
+
+      return this.http.get(baseUrl, {params});
+      
   }
 
 }
