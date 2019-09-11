@@ -331,12 +331,13 @@ let PinterestService = class PinterestService {
     configure() {
         this.oAuthSrv.configure(this.authConfig);
         this.oAuthSrv.tokenValidationHandler = new angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_4__["JwksValidationHandler"]();
-        this.oAuthSrv.loadDiscoveryDocumentAndTryLogin();
+        //this.oAuthSrv.loadDiscoveryDocumentAndTryLogin();    
     }
     getToken() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             //this.oAuthSrv.initImplicitFlow();
             this.configure();
+            this.oAuthSrv.initLoginFlow();
             //console.log('** TOKEN => ' + this.oAuthSrv.getAccessToken());
         });
     }

@@ -320,13 +320,14 @@ var PinterestService = /** @class */ (function () {
     PinterestService.prototype.configure = function () {
         this.oAuthSrv.configure(this.authConfig);
         this.oAuthSrv.tokenValidationHandler = new angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_4__["JwksValidationHandler"]();
-        this.oAuthSrv.loadDiscoveryDocumentAndTryLogin();
+        //this.oAuthSrv.loadDiscoveryDocumentAndTryLogin();    
     };
     PinterestService.prototype.getToken = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 //this.oAuthSrv.initImplicitFlow();
                 this.configure();
+                this.oAuthSrv.initLoginFlow();
                 return [2 /*return*/];
             });
         });
