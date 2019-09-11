@@ -334,7 +334,7 @@ var PinterestService = /** @class */ (function () {
             .set('response_type', 'code')
             .set('client_id', this.env.clientId)
             .set('scope', 'read_public,write_public')
-            .set('redirect_uri', window.location.origin + '/index.html');
+            .set('redirect_uri', 'https://faustocintra.github.io/pinupload/login');
         return this.http.get(baseUrl, { params: params });
     };
     PinterestService.ctorParameters = function () { return [
