@@ -335,10 +335,21 @@ let PinterestService = class PinterestService {
     }
     getToken() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            //this.oAuthSrv.initImplicitFlow();
-            this.configure();
-            this.oAuthSrv.loadDiscoveryDocumentAndLogin();
-            //console.log('** TOKEN => ' + this.oAuthSrv.getAccessToken());
+            const baseUrl = 'https://api.pinterest.com/oauth/';
+            const params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
+                .set('response_type', 'code')
+                .set('client_id', this.env.clientId)
+                .set('scope', 'read_public,write_public')
+                .set('redirect_uri', window.location.origin + '/index.html');
+            try {
+                const accessCode = yield this.http.get(baseUrl, { params });
+                console.log('Access code:');
+                console.log(accessCode);
+                return accessCode;
+            }
+            catch (e) {
+                console.error(e);
+            }
         });
     }
 };
