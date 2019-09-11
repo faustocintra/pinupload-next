@@ -193,7 +193,13 @@ var LoginComponent = /** @class */ (function () {
         this.token = '';
     }
     LoginComponent.prototype.ngOnInit = function () {
-        this.token = this.pinterest.getToken();
+        this.pinterest.getToken().subscribe(function (accessCode) {
+            console.log('Access code:');
+            console.log(accessCode);
+            return accessCode;
+        }, function (error) {
+            console.error(error);
+        });
     };
     LoginComponent.ctorParameters = function () { return [
         { type: _services_pinterest_service__WEBPACK_IMPORTED_MODULE_2__["PinterestService"] }
@@ -323,26 +329,13 @@ var PinterestService = /** @class */ (function () {
         //this.oAuthSrv.loadDiscoveryDocumentAndTryLogin();    
     };
     PinterestService.prototype.getToken = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var baseUrl, params, obs;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                baseUrl = 'https://api.pinterest.com/oauth/';
-                params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
-                    .set('response_type', 'code')
-                    .set('client_id', this.env.clientId)
-                    .set('scope', 'read_public,write_public')
-                    .set('redirect_uri', window.location.origin + '/index.html');
-                obs = this.http.get(baseUrl, { params: params });
-                obs.subscribe(function (accessCode) {
-                    console.log('Access code:');
-                    console.log(accessCode);
-                    return accessCode;
-                }, function (error) {
-                    console.error(error);
-                });
-                return [2 /*return*/];
-            });
-        });
+        var baseUrl = 'https://api.pinterest.com/oauth/';
+        var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
+            .set('response_type', 'code')
+            .set('client_id', this.env.clientId)
+            .set('scope', 'read_public,write_public')
+            .set('redirect_uri', window.location.origin + '/index.html');
+        return this.http.get(baseUrl, { params: params });
     };
     PinterestService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },

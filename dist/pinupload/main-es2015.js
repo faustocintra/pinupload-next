@@ -208,7 +208,13 @@ let LoginComponent = class LoginComponent {
         this.token = '';
     }
     ngOnInit() {
-        this.token = this.pinterest.getToken();
+        this.pinterest.getToken().subscribe(accessCode => {
+            console.log('Access code:');
+            console.log(accessCode);
+            return accessCode;
+        }, error => {
+            console.error(error);
+        });
     }
 };
 LoginComponent.ctorParameters = () => [
@@ -334,22 +340,13 @@ let PinterestService = class PinterestService {
         //this.oAuthSrv.loadDiscoveryDocumentAndTryLogin();    
     }
     getToken() {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            const baseUrl = 'https://api.pinterest.com/oauth/';
-            const params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
-                .set('response_type', 'code')
-                .set('client_id', this.env.clientId)
-                .set('scope', 'read_public,write_public')
-                .set('redirect_uri', window.location.origin + '/index.html');
-            const obs = this.http.get(baseUrl, { params });
-            obs.subscribe(accessCode => {
-                console.log('Access code:');
-                console.log(accessCode);
-                return accessCode;
-            }, error => {
-                console.error(error);
-            });
-        });
+        const baseUrl = 'https://api.pinterest.com/oauth/';
+        const params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
+            .set('response_type', 'code')
+            .set('client_id', this.env.clientId)
+            .set('scope', 'read_public,write_public')
+            .set('redirect_uri', window.location.origin + '/index.html');
+        return this.http.get(baseUrl, { params });
     }
 };
 PinterestService.ctorParameters = () => [
