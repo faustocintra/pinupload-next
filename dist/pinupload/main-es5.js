@@ -327,7 +327,7 @@ var PinterestService = /** @class */ (function () {
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 //this.oAuthSrv.initImplicitFlow();
                 this.configure();
-                this.oAuthSrv.initLoginFlow();
+                this.oAuthSrv.loadDiscoveryDocumentAndLogin();
                 return [2 /*return*/];
             });
         });
