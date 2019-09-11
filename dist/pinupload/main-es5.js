@@ -310,18 +310,23 @@ var PinterestService = /** @class */ (function () {
         this.http = http;
         this.oAuthSrv = oAuthSrv;
         this.env = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"];
-        this.oAuthSrv.loginUrl = this.env.authUrl;
-        this.oAuthSrv.redirectUri = this.env.redirectUri;
-        this.oAuthSrv.clientId = this.env.clientId;
-        this.oAuthSrv.scope = 'read_public,write_public';
-        this.oAuthSrv.setStorage(sessionStorage);
-        //this.oAuthSrv.tryLogin({});  
+        this.authConfig = {
+            issuer: this.env.authUrl,
+            redirectUri: window.location.origin + '/index.html',
+            clientId: this.env.clientId,
+            scope: 'read_public,write_public',
+        };
     }
+    PinterestService.prototype.configure = function () {
+        this.oAuthSrv.configure(this.authConfig);
+        this.oAuthSrv.tokenValidationHandler = new angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_4__["JwksValidationHandler"]();
+        this.oAuthSrv.loadDiscoveryDocumentAndTryLogin();
+    };
     PinterestService.prototype.getToken = function () {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                this.oAuthSrv.initImplicitFlow();
-                console.log('** TOKEN => ' + this.oAuthSrv.getAccessToken());
+                //this.oAuthSrv.initImplicitFlow();
+                this.configure();
                 return [2 /*return*/];
             });
         });
