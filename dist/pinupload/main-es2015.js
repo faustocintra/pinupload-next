@@ -199,26 +199,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _services_pinterest_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/pinterest.service */ "./src/app/services/pinterest.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+
+
 
 
 
 let LoginComponent = class LoginComponent {
-    constructor(pinterest) {
+    constructor(pinterest, router, route) {
         this.pinterest = pinterest;
+        this.router = router;
+        this.route = route;
         this.token = '';
     }
     ngOnInit() {
-        this.pinterest.getToken().subscribe(accessCode => {
-            console.log('Access code:');
-            console.log(accessCode);
-            return accessCode;
-        }, error => {
-            console.error(error);
+        this.route.queryParams.subscribe(params => {
+            if (params.code) {
+                console.log('Access code:');
+                console.log(params.code);
+                this.pinterest.accessCode = params.code;
+            }
+            else {
+                this.doLogin();
+            }
         });
+    }
+    doLogin() {
+        const env = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
+        const baseUrl = 'https://api.pinterest.com/oauth/';
+        const params = {
+            response_type: 'code',
+            client_id: env.clientId,
+            scope: 'read_public,write_public',
+            redirect_uri: 'https://faustocintra.github.io/pinupload/login'
+        };
+        this.router.navigate([baseUrl], { queryParams: params });
     }
 };
 LoginComponent.ctorParameters = () => [
-    { type: _services_pinterest_service__WEBPACK_IMPORTED_MODULE_2__["PinterestService"] }
+    { type: _services_pinterest_service__WEBPACK_IMPORTED_MODULE_2__["PinterestService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
 ];
 LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -339,7 +361,7 @@ let PinterestService = class PinterestService {
         this.oAuthSrv.tokenValidationHandler = new angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_4__["JwksValidationHandler"]();
         //this.oAuthSrv.loadDiscoveryDocumentAndTryLogin();    
     }
-    getToken() {
+    getAccessCode() {
         const baseUrl = 'https://api.pinterest.com/oauth/';
         const params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
             .set('response_type', 'code')

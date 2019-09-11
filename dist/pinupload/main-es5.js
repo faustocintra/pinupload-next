@@ -184,25 +184,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_pinterest_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/pinterest.service */ "./src/app/services/pinterest.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+
+
 
 
 
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(pinterest) {
+    function LoginComponent(pinterest, router, route) {
         this.pinterest = pinterest;
+        this.router = router;
+        this.route = route;
         this.token = '';
     }
     LoginComponent.prototype.ngOnInit = function () {
-        this.pinterest.getToken().subscribe(function (accessCode) {
-            console.log('Access code:');
-            console.log(accessCode);
-            return accessCode;
-        }, function (error) {
-            console.error(error);
+        var _this = this;
+        this.route.queryParams.subscribe(function (params) {
+            if (params.code) {
+                console.log('Access code:');
+                console.log(params.code);
+                _this.pinterest.accessCode = params.code;
+            }
+            else {
+                _this.doLogin();
+            }
         });
     };
+    LoginComponent.prototype.doLogin = function () {
+        var env = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"];
+        var baseUrl = 'https://api.pinterest.com/oauth/';
+        var params = {
+            response_type: 'code',
+            client_id: env.clientId,
+            scope: 'read_public,write_public',
+            redirect_uri: 'https://faustocintra.github.io/pinupload/login'
+        };
+        this.router.navigate([baseUrl], { queryParams: params });
+    };
     LoginComponent.ctorParameters = function () { return [
-        { type: _services_pinterest_service__WEBPACK_IMPORTED_MODULE_2__["PinterestService"] }
+        { type: _services_pinterest_service__WEBPACK_IMPORTED_MODULE_2__["PinterestService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] }
     ]; };
     LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -328,7 +351,7 @@ var PinterestService = /** @class */ (function () {
         this.oAuthSrv.tokenValidationHandler = new angular_oauth2_oidc__WEBPACK_IMPORTED_MODULE_4__["JwksValidationHandler"]();
         //this.oAuthSrv.loadDiscoveryDocumentAndTryLogin();    
     };
-    PinterestService.prototype.getToken = function () {
+    PinterestService.prototype.getAccessCode = function () {
         var baseUrl = 'https://api.pinterest.com/oauth/';
         var params = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpParams"]()
             .set('response_type', 'code')
