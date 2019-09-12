@@ -3,9 +3,9 @@
 # Compila o projeto Angular para deploy. Caso você esteja
 # utilizando o git bash, utilize duas barras // após --base-href.7
 # Este comando gera ou atualiza a pasta /dist
-ng build --base-href /pinupload/
+ng build --prod --base-href /pinupload/
 
-cp src/404.html dist/pinupload
+cp src/404.html dist
 
 # Adicionar a pasta /dist para ser enviada ao GitHub.
 # A opção -f força a adição mesmo se o caminho estiver
