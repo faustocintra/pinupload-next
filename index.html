@@ -10,6 +10,21 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="styles.6ce6f4a40c62c619277e.css"></head>
 <body>
+    <script>
+        (function(){
+          var redirect = sessionStorage.redirect;
+          delete sessionStorage.redirect;
+          if (redirect && redirect != location.href) {
+            history.replaceState(null, null, redirect);
+            // REMOVE THIS - just showing the redirect route in the UI
+            document.body.setAttribute('message', 'This page was redirected by 404.html, from the route: ' + redirect);
+          }
+          else {
+            // REMOVE THIS - just showing the redirect route in the UI
+            document.body.setAttribute('message', 'This page was loaded directly from the index.html file');
+          }
+        })();
+      </script>
   <app-root></app-root>
-<script src="runtime-es2015.5bc68c0dd8cf137fbe82.js" type="module"></script><script src="polyfills-es2015.5cb1e996b2a376ba4548.js" type="module"></script><script src="runtime-es5.ee0aae13fb762b150814.js" nomodule defer></script><script src="polyfills-es5.f2cb7085da8422a86399.js" nomodule defer></script><script src="main-es2015.50918abeea1b0208a6ff.js" type="module"></script><script src="main-es5.5a84728820e4293eada0.js" nomodule defer></script></body>
+<script src="runtime-es2015.5bc68c0dd8cf137fbe82.js" type="module"></script><script src="polyfills-es2015.5cb1e996b2a376ba4548.js" type="module"></script><script src="runtime-es5.ee0aae13fb762b150814.js" nomodule defer></script><script src="polyfills-es5.f2cb7085da8422a86399.js" nomodule defer></script><script src="main-es2015.7d6e2e64c7213098ec53.js" type="module"></script><script src="main-es5.55cf9e81ecc8b7f12d1f.js" nomodule defer></script></body>
 </html>
