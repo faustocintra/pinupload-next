@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1568259804204,
+  "timestamp": 1568260060939,
   "index": "/pinupload/index.html",
   "assetGroups": [
     {
@@ -10,8 +10,8 @@
       "urls": [
         "/pinupload/favicon.ico",
         "/pinupload/index.html",
-        "/pinupload/main-es2015.c47770d655be54213bb9.js",
-        "/pinupload/main-es5.7c3d7759fa0a5bd3bdf7.js",
+        "/pinupload/main-es2015.162e6ebd6045033b6ed8.js",
+        "/pinupload/main-es5.37b77dc873cb6f3c6ab8.js",
         "/pinupload/manifest.webmanifest",
         "/pinupload/polyfills-es2015.5cb1e996b2a376ba4548.js",
         "/pinupload/polyfills-es5.f2cb7085da8422a86399.js",
@@ -57,9 +57,9 @@
     "/pinupload/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
     "/pinupload/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
     "/pinupload/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
-    "/pinupload/index.html": "0e1945ad1fb3cc84c971e16c9f07191ab5fa197e",
-    "/pinupload/main-es2015.c47770d655be54213bb9.js": "ea7ac078f94313c4f62111ea52554002d5d7aa0f",
-    "/pinupload/main-es5.7c3d7759fa0a5bd3bdf7.js": "83dc7d0be19a5da436ce1f8e560a6529358968db",
+    "/pinupload/index.html": "59d062a1ee713f0593e98314610f01e99d273425",
+    "/pinupload/main-es2015.162e6ebd6045033b6ed8.js": "7aa032cf7cfe9d7be20e1878617dd3c8f9040183",
+    "/pinupload/main-es5.37b77dc873cb6f3c6ab8.js": "6ed0eda06cfed0b2b9f89f1b3c0aa7193fc32b91",
     "/pinupload/manifest.webmanifest": "09fa3051fd32d5ecf1c8436844b1ed78c04bbb0e",
     "/pinupload/polyfills-es2015.5cb1e996b2a376ba4548.js": "a514da8731833287c9583044e9d512d74c45312a",
     "/pinupload/polyfills-es5.f2cb7085da8422a86399.js": "b22445e735723bf03f0bb8f71d19f0f161852733",
