@@ -8,11 +8,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './login/login.component';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { HomeComponent } from './home/home.component';
+import { OAuth2CallbackComponent } from './o-auth2-callback/o-auth2-callback.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent,
+    OAuth2CallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +26,8 @@ import { OAuthModule } from 'angular-oauth2-oidc';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
